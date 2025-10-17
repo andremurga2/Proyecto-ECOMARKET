@@ -7,7 +7,7 @@ import RegistrationForm from './components/RegistrationForm';
 
 function App() {
   const sampleProducts = [
-    { id: 1, name: 'Manzana', description: 'Manzana orgánica', price: 500, image: '' },
+    { id: 1, name: 'Banana', description: 'Manzana orgánica', price: 500, image: '' },
     { id: 2, name: 'Pan', description: 'Pan integral', price: 1200, image: '' },
   ];
 
