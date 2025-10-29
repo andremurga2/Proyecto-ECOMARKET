@@ -7,11 +7,11 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
-    setCartCount(cartCount + 1);
-    setCartItems([...cartItems, product]);
+    setCartCount((prevCount) => prevCount + 1);
+    setCartItems((prevItems) => [...prevItems, product]);
   };
 
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.precio, 0);
 
   return (
     <CartContext.Provider value={{ cartCount, addToCart, cartItems, totalPrice }}>

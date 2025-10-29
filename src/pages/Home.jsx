@@ -1,11 +1,33 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 
 function Home() {
   return (
-    <Container className="text-center mt-4">
-      <h1>Bienvenido a Ecomarket 🌿</h1>
-      <p>Productos sostenibles y ecológicos para tu día a día.</p>
+    <Container className="mt-4">
+      {/* Texto de bienvenida */}
+      <Row className="mb-4">
+        <Col className="text-center">
+          <h1 style={{ fontSize: '3rem', fontWeight: 'bold' }}>
+            Bienvenido a EcoMarket 🌿
+          </h1>
+          <p style={{ fontSize: '1.5rem' }}>
+            Productos sostenibles y ecológicos para tu día a día.
+          </p>
+        </Col>
+      </Row>
+
+      {/* Imagen grande debajo del texto */}
+      <Row>
+        <Col className="text-center">
+          <Image
+            src="/images/fondohome.jpg"
+            alt="Comprando verduras"
+            fluid
+            style={{ maxHeight: '500px', objectFit: 'cover', width: '100%' }}
+            rounded
+          />
+        </Col>
+      </Row>
     </Container>
   );
 }

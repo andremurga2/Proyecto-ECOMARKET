@@ -1,23 +1,29 @@
 import React, { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { AppContext } from '../../context/AppContext';
+import { CartContext } from '../../context/CartContext.js';
 
-function ProductCard({ product }) {
-  const { addToCart } = useContext(AppContext);
+const ProductCard = ({ product }) => {
+  const { addToCart } = useContext(CartContext);
 
   return (
-    <Card style={{ width: '18rem' }} className="mb-3 shadow-sm">
-      <Card.Img variant="top" src={product.image} alt={product.name} />
+    <Card style={{ width: '18rem', margin: '1rem' }}>
+      {/* Imagen del producto */}
+      <Card.Img variant="top" src={product.imagen} alt={product.nombre} />
+
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
-        <Card.Text>${product.price.toLocaleString()}</Card.Text>
+        {/* Nombre del producto */}
+        <Card.Title>{product.nombre}</Card.Title>
+
+        {/* Precio */}
+        <Card.Text>${product.precio}</Card.Text>
+
+        {/* Botón agregar al carrito */}
         <Button variant="success" onClick={() => addToCart(product)}>
           Agregar
         </Button>
-
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default ProductCard;

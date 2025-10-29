@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Container, Table } from 'react-bootstrap';
-import { CartContext } from '../context/CartContext.jsx';
+import { CartContext } from '../context/CartContext.js';
 
 const Payments = () => {
   const { cartItems, totalPrice } = useContext(CartContext);

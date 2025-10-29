@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { CartContext } from '../context/CartContext.jsx';
+import { CartContext } from '../context/CartContext.js';
 
 function NavBar() {
   const { cartCount } = useContext(CartContext);

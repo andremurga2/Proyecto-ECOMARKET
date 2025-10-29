@@ -1,30 +1,24 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
-import ProductCard from '../components/products/ProductCard';
-import productsData from '../data/products.mock';
+import { Container, Row, Col } from 'react-bootstrap';
+import productsData from '../data/products.js';
+import ProductCard from '../components/products/ProductCard.jsx';
+import Filters from '../components/Filters.jsx';
 
 function Products() {
-  const [category, setCategory] = useState('all');
-  const categories = ['all', ...new Set(productsData.map(p => p.category))];
-  const filtered = category === 'all' ? productsData : productsData.filter(p => p.category === category);
+  const [selectedCategory, setSelectedCategory] = useState('Todos');
+
+  const filteredProducts =
+    selectedCategory === 'Todos'
+      ? productsData
+      : productsData.filter(p => p.categoria === selectedCategory);
 
   return (
     <Container>
-      <h2 className="text-center mb-3">Catálogo de productos</h2>
-      <ButtonGroup className="mb-4 d-flex justify-content-center">
-        {categories.map(cat => (
-          <Button
-            key={cat}
-            variant={cat === category ? 'success' : 'outline-success'}
-            onClick={() => setCategory(cat)}
-          >
-            {cat}
-          </Button>
-        ))}
-      </ButtonGroup>
+      <h2 className="my-4">Productos</h2>
+      <Filters selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
       <Row>
-        {filtered.map(product => (
-          <Col key={product.id} md={4}>
+        {filteredProducts.map((product) => (
+          <Col key={product.id} sm={12} md={6} lg={4}>
             <ProductCard product={product} />
           </Col>
         ))}
