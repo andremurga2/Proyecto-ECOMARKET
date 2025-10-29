@@ -11,9 +11,10 @@ function ProductCard({ product }) {
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>${product.price.toLocaleString()}</Card.Text>
-        <Button variant="success" onClick={() => addToCart()}>
-          Agregar al carrito
+        <Button variant="success" onClick={() => addToCart(product)}>
+          Agregar
         </Button>
+
       </Card.Body>
     </Card>
   );
