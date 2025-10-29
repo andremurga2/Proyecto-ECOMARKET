@@ -1,37 +1,28 @@
 import React, { useContext } from 'react';
-import { Navbar, Container, Nav, Badge } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { CartContext } from '../context/CartContext';
+import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 
-export default function NavBar() {
-  const { count } = useContext(CartContext);
+function NavBar() {
+  const { cartCount } = useContext(AppContext);
 
   return (
-    <Navbar bg="light" fixed="top" expand="md">
+    <Navbar bg="success" variant="dark" expand="lg" className="mb-4">
       <Container>
-        <LinkContainer to="/">
-          <Navbar.Brand>EcoMarket</Navbar.Brand>
-        </LinkContainer>
-        <Navbar.Toggle />
-        <Navbar.Collapse>
+        <Navbar.Brand as={Link} to="/">Ecomarket</Navbar.Brand>
+        <Navbar.Toggle aria-controls="nav" />
+        <Navbar.Collapse id="nav">
           <Nav className="me-auto">
-            <LinkContainer to="/">
-              <Nav.Link>Inicio</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/productos">
-              <Nav.Link>Productos</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/contacto">
-              <Nav.Link>Contacto</Nav.Link>
-            </LinkContainer>
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/productos">Productos</Nav.Link>
+            <Nav.Link as={Link} to="/contacto">Contacto</Nav.Link>
           </Nav>
-          <Nav>
-            <Nav.Link disabled>
-              Carrito <Badge bg="secondary">{count}</Badge>
-            </Nav.Link>
-          </Nav>
+          <Badge bg="light" text="dark">🛒 {cartCount}</Badge>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
+
+export default NavBar;
+
