@@ -1,4 +1,5 @@
 const products = [
+  // --- Alimentos ---
   {
     id: 1,
     nombre: 'Manzanas Orgánicas',
@@ -15,31 +16,91 @@ const products = [
   },
   {
     id: 3,
-    nombre: 'Alimentos',
+    nombre: 'Leche de Avena',
     precio: 2200,
-    categoria: 'Bebidas',
+    categoria: 'Alimentos',
     imagen: '/images/lecheavena.jpg'
   },
   {
     id: 4,
-    nombre: 'Alimentos',
+    nombre: 'Queso Vegano',
     precio: 3000,
-    categoria: 'Lácteos',
+    categoria: 'Alimentos',
     imagen: '/images/quesovegano.jpg'
   },
   {
     id: 5,
-    nombre: 'Alimentos',
+    nombre: 'Miel de Palma',
     precio: 3500,
-    categoria: 'Endulzantes',
+    categoria: 'Alimentos',
     imagen: '/images/mieldepalma.jpg'
   },
   {
     id: 6,
-    nombre: 'Alimentos',
+    nombre: 'Harina Integral',
     precio: 2000,
-    categoria: 'Panadería',
+    categoria: 'Alimentos',
     imagen: '/images/harinaintegral.jpg'
+  },
+
+  // --- Cuidado Personal ---
+  {
+    id: 7,
+    nombre: 'Shampoo Sólido Natural',
+    precio: 4800,
+    categoria: 'Cuidado Personal',
+    imagen: '/images/shampoo.jpg'
+  },
+  {
+    id: 8,
+    nombre: 'Cepillo de Bambú',
+    precio: 1500,
+    categoria: 'Cuidado Personal',
+    imagen: '/images/cepillobambu.jpg'
+  },
+  {
+    id: 9,
+    nombre: 'Desodorante Natural',
+    precio: 3900,
+    categoria: 'Cuidado Personal',
+    imagen: '/images/desodorante.jpg'
+  },
+  {
+    id: 10,
+    nombre: 'Jabón Artesanal Ecológico',
+    precio: 2800,
+    categoria: 'Cuidado Personal',
+    imagen: '/images/jabon.jpg'
+  },
+
+  // --- Hogar Ecológico ---
+  {
+    id: 11,
+    nombre: 'Detergente Biodegradable',
+    precio: 5200,
+    categoria: 'Hogar',
+    imagen: '/images/detergente.jpg'
+  },
+  {
+    id: 12,
+    nombre: 'Esponjas de Lufa Natural',
+    precio: 2500,
+    categoria: 'Hogar',
+    imagen: '/images/esponjalufa.jpg'
+  },
+  {
+    id: 13,
+    nombre: 'Paños Reutilizables de Bambú',
+    precio: 3100,
+    categoria: 'Hogar',
+    imagen: '/images/panosbambu.jpg'
+  },
+  {
+    id: 14,
+    nombre: 'Velas Naturales de Soya',
+    precio: 4300,
+    categoria: 'Hogar',
+    imagen: '/images/velasoya.jpg'
   }
 ];
 

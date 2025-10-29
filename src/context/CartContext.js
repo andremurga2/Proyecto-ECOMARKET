@@ -7,7 +7,7 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
-    setCartCount((prevCount) => prevCount + 1);
+    setCartCount((prev) => prev + 1);
     setCartItems((prevItems) => [...prevItems, product]);
   };
 

@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext.js';
 
+
 function NavBar() {
   const { cartCount } = useContext(CartContext);
   const navigate = useNavigate(); // Para navegar al detalle de pagos

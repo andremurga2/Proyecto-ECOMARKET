@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 const Footer = () => {
   return (
     <footer style={{ 
-      backgroundColor: '#f8f9fa', 
+      backgroundColor: '#198754', 
       padding: '1.5rem 0', 
       marginTop: '2rem', 
       borderTop: '1px solid #e9ecef' 
@@ -12,13 +12,14 @@ const Footer = () => {
       <Container>
         <Row>
           <Col md={6}>
-            <h5>EcoMarket 🌿</h5>
-            <p>Dirección: Calle Falsa 123, Ciudad, País</p>
+            <h4><b>EcoMarket 🌿</b></h4>
+            <p>Calle Justiniano 245, Santa Cruz, Bolivia</p>
           </Col>
           <Col md={6}>
-            <h5>Horario de Atención</h5>
+            <h4><b>Horario de Atención</b></h4>
             <p>Lunes a Viernes: 09:00 - 18:00</p>
             <p>Sábado: 10:00 - 14:00</p>
+            <p>Domingo: Cerrados</p>
           </Col>
         </Row>
         <Row className="mt-3">
