@@ -1,21 +1,32 @@
 import { render, screen } from '@testing-library/react';
-import Payments from './Payments';
 import { CartContext } from '../context/CartContext';
-import '@testing-library/jest-dom';
+import Payments from './Payments';
 
-test('muestra el total correcto de los productos', () => {
-  const cartItems = [
-    { nombre: 'Manzanas', categoria: 'Alimentos', precio: 2000 },
-    { nombre: 'Pan', categoria: 'Panadería', precio: 1500 }
-  ];
+describe('Payments', () => {
+  test('muestra mensaje si el carrito está vacío', () => {
+    render(
+      <CartContext.Provider value={{ cartItems: [], totalPrice: 0 }}>
+        <Payments />
+      </CartContext.Provider>
+    );
 
-  const totalPrice = 3500;
+    expect(screen.getByText(/Tu carrito está vacío/i)).toBeInTheDocument();
+  });
 
-  render(
-    <CartContext.Provider value={{ cartItems, totalPrice }}>
-      <Payments />
-    </CartContext.Provider>
-  );
+  test('muestra productos y total correctamente', () => {
+    const items = [
+      { nombre: 'Pan Integral', categoria: 'Alimentos', precio: 1800 },
+      { nombre: 'Leche de Avena', categoria: 'Bebidas', precio: 2200 }
+    ];
 
-  expect(screen.getByText(/\$3500/i)).toBeInTheDocument();
+    render(
+      <CartContext.Provider value={{ cartItems: items, totalPrice: 4000 }}>
+        <Payments />
+      </CartContext.Provider>
+    );
+
+    expect(screen.getByText(/Pan Integral/i)).toBeInTheDocument();
+    expect(screen.getByText(/Leche de Avena/i)).toBeInTheDocument();
+    expect(screen.getByText(/\$4000/i)).toBeInTheDocument();
+  });
 });

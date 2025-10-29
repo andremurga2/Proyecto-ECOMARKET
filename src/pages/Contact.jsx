@@ -10,31 +10,49 @@ function Contact() {
   return (
     <Container style={{ maxWidth: '500px' }}>
       <h2 className="text-center mb-3">Contáctanos</h2>
+
+      {/* Mensaje de éxito */}
       {isSubmitSuccessful && <Alert variant="success">¡Mensaje enviado correctamente!</Alert>}
 
       <Form onSubmit={handleSubmit(onSubmit)}>
+        {/* Nombre */}
         <Form.Group className="mb-3">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control type="text" {...register('name', { required: true })} />
+          <Form.Label htmlFor="name">Nombre</Form.Label>
+          <Form.Control
+            id="name"
+            type="text"
+            {...register('name', { required: true })}
+          />
           {errors.name && <small className="text-danger">El nombre es obligatorio.</small>}
         </Form.Group>
 
+        {/* Correo */}
         <Form.Group className="mb-3">
-          <Form.Label>Correo</Form.Label>
+          <Form.Label htmlFor="email">Correo</Form.Label>
           <Form.Control
+            id="email"
             type="email"
             {...register('email', { required: true, pattern: /^\S+@\S+\.\S+$/ })}
           />
           {errors.email && <small className="text-danger">Ingresa un correo válido.</small>}
         </Form.Group>
 
+        {/* Mensaje */}
         <Form.Group className="mb-3">
-          <Form.Label>Mensaje</Form.Label>
-          <Form.Control as="textarea" rows={3} {...register('message', { required: true })} />
+          <Form.Label htmlFor="message">Mensaje</Form.Label>
+          <Form.Control
+            id="message"
+            as="textarea"
+            rows={3}
+            {...register('message', { required: true })}
+          />
           {errors.message && <small className="text-danger">El mensaje no puede estar vacío.</small>}
         </Form.Group>
 
-        <Button type="submit" variant="success" className="w-100">Enviar</Button>
+        {/* Botón enviar */}
+        <Button type="submit" variant="success" className="w-100">
+          Enviar
+        </Button>
       </Form>
     </Container>
   );
