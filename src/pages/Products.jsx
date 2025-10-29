@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
 import ProductCard from '../components/products/ProductCard';
-import productsData from '../data/gaming.mock';
+import productsData from '../data/products.mock';
 
 function Products() {
   const [category, setCategory] = useState('all');
