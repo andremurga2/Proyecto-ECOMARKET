@@ -20,4 +20,14 @@ describe('Contact', () => {
 
     expect(await screen.findByText(/¡Mensaje enviado correctamente!/i)).toBeInTheDocument();
   });
+
+  test('muestra error si el correo no tiene formato válido', async () => {
+    render(<Contact />);
+
+    fireEvent.change(screen.getByLabelText(/Correo/i), { target: { value: 'correo-invalido' } });
+    fireEvent.click(screen.getByRole('button', { name: /Enviar/i }));
+    expect(await screen.findByText(/Ingresa un correo válido/i)).toBeInTheDocument();
+  });
 });
+
+

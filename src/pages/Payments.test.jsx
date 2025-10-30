@@ -29,4 +29,6 @@ describe('Payments', () => {
     expect(screen.getByText(/Leche de Avena/i)).toBeInTheDocument();
     expect(screen.getByText(/\$4000/i)).toBeInTheDocument();
   });
+
 });
+

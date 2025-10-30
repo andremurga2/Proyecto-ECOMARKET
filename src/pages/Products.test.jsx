@@ -29,4 +29,21 @@ describe('ProductCard', () => {
 
     expect(addToCart).toHaveBeenCalledTimes(1);
   });
+
+  test('muestra imagen estática del producto', () => {
+  const product = { nombre: 'Manzana', precio: 2500, imagen: '/images/manzana.jpg' };
+
+  render(
+    <CartContext.Provider value={{ addToCart: jest.fn() }}>
+      <ProductCard product={product} />
+    </CartContext.Provider>
+  );
+
+  const imagen = screen.getByAltText('Manzana');
+  expect(imagen).toBeInTheDocument();
+  expect(imagen.src).toContain('/images/manzana.jpg');
 });
+});
+
+
+
