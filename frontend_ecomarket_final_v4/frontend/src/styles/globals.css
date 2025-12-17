@@ -1,0 +1,485 @@
+/* ----------------------------------------------------- */
+/* VARIABLES GLOBALES                                    */
+/* ----------------------------------------------------- */
+:root {
+  /* Colors */
+  --color-primary: #1976d2;
+  --color-primary-700: #115293;
+  --color-accent: #ff9800;
+  --color-success: #4caf50;
+  --color-danger: #f44336;
+  --color-muted: #6b7280;
+  --color-bg: #f0f2f5;        /* gris claro */
+  --color-surface: #ffffff;   /* blanco para cards y modales */
+  --color-border: #ddd;
+  --text-primary: #0f1724;
+  --text-secondary: #334155;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Sizes */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.12);
+
+  /* Typography */
+  --font-sans: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Menlo, Monaco, "Roboto Mono", monospace;
+  --font-size-base: 16px;
+  --line-height: 1.4;
+}
+
+/* ----------------------------------------------------- */
+/* RESET / BASE                                        */
+/* ----------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  background-color: var(--color-bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----------------------------------------------------- */
+/* LAYOUT                                             */
+/* ----------------------------------------------------- */
+.App {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+/* ----------------------------------------------------- */
+/* HEADER / FOOTER                                     */
+/* ----------------------------------------------------- */
+.app-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md) 0;
+}
+
+.app-header a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+footer {
+  background: transparent;
+  color: var(--color-muted);
+  padding: var(--space-md);
+  text-align: center;
+}
+
+/* ----------------------------------------------------- */
+/* BOTONES                                             */
+/* ----------------------------------------------------- */
+button {
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+button:hover {
+  background-color: var(--color-primary-700);
+}
+
+button[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--text-primary);
+}
+
+/* ----------------------------------------------------- */
+/* FORMULARIOS                                        */
+/* ----------------------------------------------------- */
+input, textarea, select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--text-primary);
+  font: inherit;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.form-row {
+  margin-bottom: var(--space-md);
+}
+
+/* ----------------------------------------------------- */
+/* CARDS / LISTAS                                     */
+/* ----------------------------------------------------- */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+/* ----------------------------------------------------- */
+/* TABLAS                                              */
+/* ----------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-surface);
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+/* ----------------------------------------------------- */
+/* UTILIDADES                                         */
+/* ----------------------------------------------------- */
+.text-muted { color: var(--color-muted); }
+.align-center { text-align: center; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mb-2 { margin-bottom: 16px; }
+
+/* ----------------------------------------------------- */
+/* SPINNER / ANIMACIONES                               */
+/* ----------------------------------------------------- */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ----------------------------------------------------- */
+/* MEDIA QUERIES                                      */
+/* ----------------------------------------------------- */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+
+
+/* ----------------------------------------------------- */
+/* COMPONENT CLASSES (UI)                                 */
+/* ----------------------------------------------------- */
+.appHeader{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+}
+.nav{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  padding: 12px 0;
+}
+.brand{
+  font-weight: 900;
+  letter-spacing: .2px;
+  color: var(--text-primary);
+  text-decoration: none;
+  margin-right: 8px;
+}
+.navLink{
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+.navLink:hover{
+  background: rgba(25,118,210,.08);
+  color: var(--text-primary);
+}
+.spacer{ flex: 1; }
+.userArea{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+.hello{
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(25,118,210,.12);
+  border: 1px solid rgba(25,118,210,.18);
+  color: var(--text-primary);
+  font-weight: 800;
+  font-size: 12px;
+  margin-left: 8px;
+}
+.pillOk{
+  background: rgba(76,175,80,.14);
+  border-color: rgba(76,175,80,.22);
+}
+.container{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.row{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+}
+.spaceBetween{
+  justify-content: space-between;
+}
+.m0{ margin: 0; }
+.muted{ color: var(--color-muted); }
+.card{
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+}
+.btn{
+  background: var(--color-primary);
+  border: 1px solid rgba(0,0,0,.05);
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 800;
+}
+.btn:hover{ background: var(--color-primary-700); }
+.btn.secondary{
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--color-border);
+}
+.btn.secondary:hover{
+  background: rgba(15,23,36,.04);
+}
+.link{
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 700;
+}
+.link.danger{ color: var(--color-danger); }
+.input{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  outline: none;
+}
+.input:focus{
+  border-color: rgba(25,118,210,.5);
+  box-shadow: 0 0 0 4px rgba(25,118,210,.12);
+}
+.label{
+  display:block;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.alert{
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(25,118,210,.25);
+  background: rgba(25,118,210,.08);
+}
+.alert.danger{
+  border-color: rgba(244,67,54,.25);
+  background: rgba(244,67,54,.08);
+}
+.divider{
+  height: 1px;
+  background: var(--color-border);
+  margin: 14px 0;
+}
+.grid2{
+  display:grid;
+  grid-template-columns: 1.4fr .9fr;
+  gap: 16px;
+}
+.gridProducts{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.tableWrap{ overflow-x:auto; }
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th, .table td{
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+.table th.right, .table td.right{ text-align: right; }
+.listRow{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.listRow:last-child{ border-bottom: 0; }
+.itemTitle{ font-weight: 900; }
+.qty{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+.qtyInput{
+  width: 70px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+.price{ font-weight: 900; }
+.right{
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+@media (max-width: 900px){
+  .grid2{ grid-template-columns: 1fr; }
+  .nav{ flex-wrap: wrap; }
+  .spacer{ display:none; }
+}
+
+
+/* ===== Categorías (filtro en Productos) ===== */
+.categoryBar{
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+}
+.chip{
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--text-primary); /* ← ESTA LÍNEA ARREGLA TODO */
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform .08s ease, background .15s ease, border-color .15s ease;
+  color: var(--text-secondary);
+}
+
+.chip:hover{
+  background: rgba(0,0,0,.04);
+}
+.chip.active{
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+
+/* ===== ProductoCard imágenes ===== */
+.productCard .imgWrap{
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f3f4f6;
+  border: 1px solid rgba(0,0,0,.06);
+  margin-bottom: 12px;
+}
+
+.productCard .imgWrap img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.productCard .imgPlaceholder{
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #f3f4f6;
+  border: 1px dashed rgba(0,0,0,.18);
+  color: var(--color-muted);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
