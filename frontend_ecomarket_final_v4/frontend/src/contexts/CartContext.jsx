@@ -80,7 +80,7 @@ export const CartProvider = ({ children }) => {
       if (!token) throw new Error("Debes iniciar sesión para comprar.");
       if (!items.length) throw new Error("Tu carrito está vacío.");
 
-      // client-side validation: don't allow non-positive quantities
+  
       for (const it of items) {
         if (!it.id) throw new Error("Hay un producto inválido en el carrito.");
         const q = Number(it.quantity || 1);

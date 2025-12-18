@@ -19,6 +19,7 @@ const endpoints = {
 
   // PEDIDOS
   pedidos: "/pedidos",
+  pedido: (id) => `/pedidos/${id}`, // ✅ AGREGADO (fix)
   pedidosAdmin: "/pedidos/admin",
   pedidosCliente: (idCliente) => `/pedidos/cliente/${idCliente}`,
 

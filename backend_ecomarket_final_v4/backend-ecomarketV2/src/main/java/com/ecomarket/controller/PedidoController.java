@@ -5,6 +5,10 @@ import com.ecomarket.model.Rol;
 import com.ecomarket.model.Usuario;
 import com.ecomarket.repository.UsuarioRepository;
 import com.ecomarket.service.PedidoService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -15,16 +19,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/pedidos")
 @RequiredArgsConstructor
+@Tag(
+    name = "Pedidos",
+    description = "Endpoints para la gestión de pedidos realizados por los clientes"
+)
 public class PedidoController {
 
     private final PedidoService pedidoService;
     private final UsuarioRepository usuarioRepo;
 
-    /**
-     * Listado:
-     * - ADMIN: ve todos
-     * - CLIENTE: ve solo los propios
-     */
+    @Operation(
+        summary = "Listar pedidos",
+        description = "ADMIN: obtiene todos los pedidos | CLIENTE: obtiene solo sus propios pedidos"
+    )
     @GetMapping
     public List<PedidoDTO> listar(Authentication authentication) {
 
@@ -39,11 +46,10 @@ public class PedidoController {
         return pedidoService.listarPorUsuario(u.getId());
     }
 
-    /**
-     * Crear pedido:
-     * - CLIENTE: se fuerza usuarioId = su propio id (ignora el que venga)
-     * - ADMIN: puede crear para cualquier usuario (si lo necesita)
-     */
+    @Operation(
+        summary = "Crear pedido",
+        description = "CLIENTE: crea un pedido propio | ADMIN: puede crear pedidos para cualquier usuario"
+    )
     @PostMapping
     public PedidoDTO crearPedido(@RequestBody PedidoDTO dto, Authentication authentication) {
 
@@ -54,27 +60,27 @@ public class PedidoController {
 
         if (u.getRol() != Rol.ADMIN) {
             dto.setUsuarioId(u.getId());
-        } else {
-            if (dto.getUsuarioId() == null) {
-                dto.setUsuarioId(u.getId());
-            }
+        } else if (dto.getUsuarioId() == null) {
+            dto.setUsuarioId(u.getId());
         }
 
         return pedidoService.crear(dto);
     }
 
-    /**
-     * ADMIN: listar pedidos de un cliente específico
-     */
+    @Operation(
+        summary = "Listar pedidos por cliente (ADMIN)",
+        description = "Permite al administrador obtener los pedidos de un cliente específico"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/cliente/{idCliente}")
     public List<PedidoDTO> listarPorCliente(@PathVariable Long idCliente) {
         return pedidoService.listarPorUsuario(idCliente);
     }
 
-    /**
-     * ADMIN: listado total (alias)
-     */
+    @Operation(
+        summary = "Listar todos los pedidos (ADMIN)",
+        description = "Devuelve el listado completo de pedidos del sistema"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public List<PedidoDTO> listarTodos() {

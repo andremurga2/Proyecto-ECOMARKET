@@ -1,13 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { AuthProvider } from "../contexts/AuthContext";
 import { CartProvider } from "../contexts/CartContext";
-
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import ProtectedRoute from "../components/common/ProtectedRoute";
-
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -19,28 +16,22 @@ import Checkout from "../pages/Checkout";
 import Pedidos from "../pages/Pedidos";
 import Pago from "../pages/Pago";
 import NotFound from "../pages/NotFound";
-
 import CategoriaForm from "../components/categorias/CategoriaForm";
 import PagoForm from "../components/pagos/PagoForm";
 import PagoDetail from "../components/pagos/PagoDetail";
-
 function AppRoutes() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
           <Header />
-
           <main style={{ minHeight: "70vh" }}>
             <Routes>
               <Route path="/" element={<Home />} />
-
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-
               <Route path="/productos" element={<Productos />} />
               <Route path="/productos/:id" element={<ProductoPage />} />
-
               {/* ADMIN: PRODUCTOS */}
               <Route
                 path="/productos/nuevo"
@@ -58,8 +49,6 @@ function AppRoutes() {
                   </ProtectedRoute>
                 }
               />
-
-
               <Route
                 path="/checkout"
                 element={
@@ -68,7 +57,6 @@ function AppRoutes() {
                   </ProtectedRoute>
                 }
               />
-
               <Route
                 path="/pedidos"
                 element={
@@ -77,7 +65,6 @@ function AppRoutes() {
                   </ProtectedRoute>
                 }
               />
-
               {/* ADMIN: CATEGORÍAS */}
               <Route
                 path="/categorias"
@@ -103,7 +90,6 @@ function AppRoutes() {
                   </ProtectedRoute>
                 }
               />
-
               {/* ADMIN: PAGOS */}
               <Route
                 path="/pago"
