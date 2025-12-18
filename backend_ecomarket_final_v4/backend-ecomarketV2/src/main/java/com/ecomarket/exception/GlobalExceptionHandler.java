@@ -3,7 +3,10 @@ package com.ecomarket.exception;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +17,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  // 🔴 Recurso no encontrado (producto, cliente, pedido, etc.)
+  // 🔴 Recurso no encontrado
   @ExceptionHandler(NotFoundException.class)
   public ResponseEntity<Map<String, Object>> notFound(NotFoundException ex) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -25,11 +28,10 @@ public class GlobalExceptionHandler {
         ));
   }
 
-  // 🟠 Errores de validación en DTOs con @Valid
+  // 🟠 Validaciones DTO (@Valid)
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Map<String, Object>> validation(MethodArgumentNotValidException ex) {
     Map<String, String> errors = new HashMap<>();
-
     ex.getBindingResult().getFieldErrors()
         .forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
 
@@ -41,7 +43,21 @@ public class GlobalExceptionHandler {
         ));
   }
 
-  // 🟠 Violaciones en parámetros validados
+  // 🟠 JSON mal formado / body inválido
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResponseEntity<Map<String, Object>> notReadable(HttpMessageNotReadableException ex) {
+    return ResponseEntity.badRequest()
+        .body(Map.of(
+            "error", "Body inválido o mal formado",
+            "details", ex.getMostSpecificCause() != null
+                    ? ex.getMostSpecificCause().getMessage()
+                    : ex.getMessage(),
+            "status", 400,
+            "timestamp", new Date()
+        ));
+  }
+
+  // 🟠 Validaciones de parámetros
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<Map<String, Object>> constraint(ConstraintViolationException ex) {
     return ResponseEntity.badRequest()
@@ -52,7 +68,7 @@ public class GlobalExceptionHandler {
         ));
   }
 
-  // 🔴 Reglas de negocio genéricas (400)
+  // 🔴 Reglas de negocio (400)
   @ExceptionHandler(BadRequestException.class)
   public ResponseEntity<Map<String, Object>> badRequest(BadRequestException ex) {
     return ResponseEntity.badRequest()
@@ -63,8 +79,7 @@ public class GlobalExceptionHandler {
         ));
   }
 
-  // 🟡 CONFLICT: reglas de negocio que impiden la operación
-  // 👉 productos con pedidos asociados
+  // 🟡 CONFLICT (409)
   @ExceptionHandler(IllegalStateException.class)
   public ResponseEntity<Map<String, Object>> conflict(IllegalStateException ex) {
     return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -75,7 +90,7 @@ public class GlobalExceptionHandler {
         ));
   }
 
-  // 🔒 FORBIDDEN: acceso denegado (roles / permisos)
+  // 🔒 FORBIDDEN (403)
   @ExceptionHandler(AccessDeniedException.class)
   public ResponseEntity<Map<String, Object>> accessDenied(AccessDeniedException ex) {
     return ResponseEntity.status(HttpStatus.FORBIDDEN)
@@ -87,12 +102,22 @@ public class GlobalExceptionHandler {
         ));
   }
 
-  // ⚫ Cualquier error NO controlado
+  // 🔑 UNAUTHORIZED (401)
+  @ExceptionHandler({ BadCredentialsException.class, AuthenticationException.class })
+  public ResponseEntity<Map<String, Object>> unauthorized(Exception ex) {
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+        .body(Map.of(
+            "error", "No autorizado",
+            "details", ex.getMessage(),
+            "status", 401,
+            "timestamp", new Date()
+        ));
+  }
+
+  // ⚫ Error genérico (500)
   @ExceptionHandler(Exception.class)
   public ResponseEntity<Map<String, Object>> global(Exception ex) {
-
-    ex.printStackTrace(); // útil en desarrollo
-
+    ex.printStackTrace();
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(Map.of(
             "error", "Error interno en EcoMarket. Intente nuevamente.",
